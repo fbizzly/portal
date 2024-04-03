@@ -1,0 +1,104 @@
+<odoo>
+  <data>
+
+    <template id="portal_my_home" inherit_id="portal.portal_my_home" >
+        <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
+            <t t-call="portal.portal_docs_entry">
+                <t t-set="url">/my/customer</t>
+                <t t-set="title">My customer Portal</t>
+                <t t-set="placeholder_count" t-value="'customers_counts'"/>
+            </t>
+        </xpath>
+    </template>
+
+    <template id="portal_breadcrumbs" inherit_id="portal.portal_breadcrumbs">
+        <xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
+            <li t-if="page_name == 'customer_list'" class="breadcrumb-item">Customers</li>
+            <li t-if="page_name == 'customer_form'" class="breadcrumb-item">
+                <a href="/my/customer" >Customers</a>
+            </li>
+        </xpath>
+    </template>
+
+    <template id="web_customer_portal_list_view">
+        <t t-call="portal.portal_layout">
+            <table>
+                <t t-call="portal.portal_table">
+                  <thead>
+                      <tr class="active">
+                          <th class="text-center">Nama</th>
+                          <th class="text-center">Telepon</th>
+                          <th class="text-center">Email</th>
+                      </tr>
+                  </thead>
+                  <t t-foreach="customers" t-as="customer">
+                      <tr>
+                          <td class="text-center">
+                              <a t-attf-href="/my/customer/#{customer.id}">
+                                  <t t-esc="customer.name"/>
+                              </a>
+                          </td>
+                          <td class="text-center">
+                              <t t-esc="customer.phone"/>
+                          </td>
+                          <td class="text-center">
+                              <t t-esc="customer.email"/>
+                          </td>
+                      </tr>
+                  </t>
+                </t>
+            </table>
+        </t>
+    </template>
+
+    <template id="web_customer_portal_form_view" inherit_id="portal.portal_sidebar">
+        <xpath expr="//div[hasclass('o_portal_sidebar')]" position="inside">
+            <t t-if="page_name == 'customer_form'">
+                <section style="background-color: #eee;">
+                  <div class="container py-5">
+                    <div class="row">
+                      <div class="col-lg-12">
+                        <div class="card mb-12">
+                          <div class="card-body text-center">
+                            Sesuai dengan penjelasan yang diberikan oleh Dokter Hewan di Makassar Pet Clinic
+Saya yang bertanda tangan dibawah ini :
+Nama :
+Alamat :
+No. KTP/Identitas :
+No. HP :
+Menyatakan Menolak untuk dilakukan tindakan kedokteran / keperawatan berupa
+……………………………………………………………………………………………………………
+……………………………………………………………………………………………………………
+……………………………………………………………………………………………………………
+……………………………………………………………………………………………………………
+……………………………………………………………………………………………………………
+……………………………………………………………………………………………………………
+ Terhadap pasien,
+Nama Anabul :
+Signalement :
+Umur :
+Nomer Rekam Medik :
+Saya memahami perlunya dan manfaat tindakan tersebut sebagaimana telah dijelaskan oleh
+Dokter Hewan di Makassar Pet Clinic kepada saya termaksud risiko dan komplikasi yang
+mungkin timbul.
+Saya juga menyadari bahwa oleh karena ilmu kedokteran hewan bukan ilmu pasti maka
+keberhasilan tindakan kedokteran hewan bukanlah keniscayaan, ,melainkan sangat tergantung
+kepada Tuhan Yang Maha Esa.
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="container py-5">
+                      <h1>Chater Fetures</h1>
+                      <t t-call="portal.message_thread">
+                          <t t-set="object" t-value="id" />
+                      </t>
+                  </div>
+                </section>
+            </t>
+        </xpath>
+    </template>
+
+  </data>
+</odoo>
